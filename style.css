@@ -1,83 +1,68 @@
-/* :root {
+body {
+    font-family: monospace;
+    font-size: 2rem;
+}
 
-} ?  */
+.highscores {
+    color: rgb(3, 182, 128);
+    font-weight: bolder;
+}
 
-h1 {
+.highscores:hover {
+    color:rgb(120, 122, 122);
 
 }
 
-h2 {
-
+.timer {
+    display: flex;
+    /* justify-content: flex-end; */
+    align-items: center;
 }
 
-/* .container {
-display: flex;
-} 
+.container {
+    margin: 90px auto 0 auto;
+    max-width: 700px;
+}
 
-.flex-container
+button {
+    display: inline-block;
+    color: rgb(247, 244, 248);
+    padding: 20px;
+    border-radius: 2rem;
+    font-size: 110%;
+    background-color: rgb(110, 7, 170);
+    margin: 2px;
+}
 
-.flex-center
+button:hover {
+    /* font-size: 3rem; */
+    color: black;
+    background-color:rgb(245, 12, 102)
+}
 
-.justify-center
-
-.text-center
-
-.hidden?
+.hidden {
     display: none;
+}
 
-.start-btn
-    design button
-    border-radius: 3px;
+#question-options {
+    list-style-type: none;
+}
 
-.start-btn:hover
-    cursor
-    box-shadow
-    ? transition
-    ? transform
 
-Also goes at end with Start Over button
-#main-endhs-btn
-    same as other button
-    change colors
 
-#main-endhs-btn :hover
-    background - same color
+/* start? */
 
-#hs-btn
-    simple
-    top left at all times
+/* Questions in JS go by titles */
+/* 
 
-#hs-button:hover
+.options-btn {
 
-#question
+}
 
-.multi-container
+input[type="text"] {
 
-.multi-text
+}
 
-#multi-btn
+li {
 
-#multi-btn:hover
-
-.leaderboard
-
-.leaderboard h1
-
-.leaderboard ul
-
-/* with main-endhs-btn */
-/* .submit-container */
-
-/* .submit-text */
-
-/* #submit-btn */
-
-/* #submit-btn:hover */
-
-/* .startover-container */
-
-/* .startover-text */
-
-/* .startover-btn */
-
-/* #startover-btn:hover */
+} */
