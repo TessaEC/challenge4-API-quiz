@@ -1,18 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>API Quiz</title>
-    <link rel="stylesheet" href="style.css"></head>
+    <link rel="stylesheet" href="style.css">
 </head>
+</head>
+
 <body>
-    <!-- div container class -->
-    <!-- div main id, flex class -->
-    <!-- H1 API Coding Quiz header for beginning -->
-    <!-- <div button class for Quiz-PLAY! </div> -->
-    <!-- <div button main-High Scores ID! </div> -->
-    <script src="script.js"></script>
+    <!-- Main page -->
+    <div class="highscores">Highscores</div>
+    <!-- id timer for js -->
+    <div class="timer">Time: <div id="time">0</div>
+    </div>
+    <div class="container">
+        <div id="start-page">
+            <!-- removed class "start" above -->
+            <h1>API Timed Quiz</h1>
+            <p>
+                <b>Game Rules:</b>
+                <br>
+                Answer each question before the timer
+                runs out, otherwise, it's GAME OVER!
+                <br>
+                <br>
+                If you answer incorrectly, <u>5</u> seconds will
+                be subtracted from your time!
+            </p>
+            <button id="start"><b><span>Start!</span></b></button>
+        </div>
+        <div id="questions" class="hidden">
+            <div id="question-title"></div>
+            <ul id="question-options">
+                <!-- create spans for al buttons -->
+                <li><button class="options" data-index="0"><span id="option-0"></span></button></li>
+                <li><button class="options" data-index="1"><span id="option-0"></span></button></li>
+                <li><button class="options" data-index="2"><span id="option-0"></span></button></li>
+                <li><button class="options" data-index="3"><span id="option-0"></span></button></li>
+            </ul>
+
+        </div>
+        <div id="finish" class="hidden">
+            <h2>Game Over!</h2>
+            <p>Your score is <span id="final-score"></span>.</p>
+            <p>
+                First Name: <input type="text" id="name" />
+                <button id="submit">Submit Score!</button>
+            </p>
+        </div>
+        <!-- If correct or incorrect text - hidden until
+    options clicked -->
+
+        <script src="quiz.js"></script>
+        <script src="script.js"></script>
+
 </body>
+
 </html>
