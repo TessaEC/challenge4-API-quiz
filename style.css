@@ -15,7 +15,6 @@ body {
 
 .timer {
     display: flex;
-    /* justify-content: flex-end; */
     align-items: center;
 }
 
@@ -30,24 +29,30 @@ button {
     padding: 20px;
     border-radius: 2rem;
     font-size: 110%;
-    background-color: rgb(110, 7, 170);
+    background-color: rgb(165, 92, 207);
     margin: 2px;
 }
 
 button:hover {
-    /* font-size: 3rem; */
     color: black;
-    background-color:rgb(245, 12, 102)
+    background-color:rgb(241, 109, 160);
+    box-shadow: 0 0 10px 5px rgb(41, 240, 247),
+                0 0 20px 10px rgb(68, 188, 243);
 }
 
 .hidden {
     display: none;
 }
 
-#question-options {
+#option-array {
     list-style-type: none;
+
 }
 
+.options {
+    display: flex;
+    color: white;
+}
 
 
 /* start? */

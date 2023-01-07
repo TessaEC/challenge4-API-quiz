@@ -3,6 +3,7 @@
 var timeStart = questions.length * 1;
 var questIndex = 0;
 var timeInterval;
+var optIndex = 0;
 // var timed;
 // HTML DOM elements
 var startPage = document.getElementById('start-page');
@@ -12,8 +13,10 @@ var timerId = document.getElementById('time');
 var submitBtn = document.getElementById('submit');
 var scoresId = document.getElementById('scores');
 var finishId = document.getElementById('finish');
-var optionsId = document.getElementById('optionArr');
-var optionBtn = document.getElementById('options')
+var optionsId = document.getElementById('option-array');
+var optionBtn = document.getElementById('option');
+var responseId = document.getElementById('response');
+var flashId = document.getElementById('flash-response');
 
 // Start button event listener
 startBtn.addEventListener('click', function() {
@@ -22,6 +25,8 @@ startBtn.addEventListener('click', function() {
 
 // Start timer
     timeInterval = setInterval(clockTick, 1000);
+
+    score = 0
 
     getQuestion();
 })
@@ -36,10 +41,11 @@ function clockTick() {
       } else {
         // when timeStart gets to 0, set timerId to an empty string
         timerId.textContent = '';
-        // clearInterval is used to stop the timer
+        // clearInterval to stop the timer
         clearInterval(timeInterval);
-        // show final-score page when timer hits 0 or questions end
+    // show final-score page when timer hits 0
       }
+    //   when timer runs out, move to finish page
     if (timeStart < 1) {
         questionsPage.classList.add("hidden")
         finishId.classList.remove("hidden")
@@ -50,86 +56,103 @@ function clockTick() {
 function getQuestion() {
     var currentQuest = questions[questIndex]
     var questionDisplay = document.getElementById('question-title')
-    questionDisplay.textContent=currentQuest.title
+    // displays question as text
+    questionDisplay.textContent = currentQuest.title
 
-    // document.getElementById("options-0")
-    // document.getElementById("options-0").textContent = words
-    // loop through question options and update each span
-    // loop questions + options button
-// loop currentQuestion
-// function loopAtt() {
-//     for (var i = 0; i < questIndex.questions.length; i++) {
-//         var quiz = questIndex.questions[i];
-//         var optBtn = document.createElement('optionArr')
-//         optBtn.setAttribute('class', 'options');
-//         optBtn.setAttribute('value', options);
-    
-//         quiz.textContent = i + 1 + questions;
+    // for loop to go through options
+    for (var i = 0; i < currentQuest.options.length; i++) {
+        var optDisplay = currentQuest.options[i];
+
+        var optCreate = document.createElement('button');
+        optCreate.setAttribute('class', 'option')
+        optCreate.setAttribute('value', optDisplay)
+        
+        optCreate.textContent = optDisplay;
+
+        optionsId.appendChild(optCreate);
+    } 
+
+// function answerQuest(event) {
+
+
+
+
+//     var answerBtn = event.target;
+
+//     optionBtn.addEventListener('click', answerBtn);
+
+//     if (!optionBtn.matches('option')) {
+//         return;
 //     }
+
+//     if(optionBtn.value !== questions[questIndex].answer) {
+//         time -= 10;
+//         if (time < 0) {
+//             time = 0;
+//         }
+
+//         timerId.textContent = time;
+
+//         responseId.textContent = 'Incorrect!';
+//     } else {
+//         responseId.textContent = 'Correct!';
+//     }
+
+//     responseId.setAttribute('class', 'response');
+//     responseTime(function() {
+//         responseId.setAttribute('class', 'flash-response');
+//     }, 2000);
+
+//     currentQuest++;
+
+//     if (time <= 0 || currentQuest === questions.length) {
+//         finishQuiz();
+//     } else {
+//         getQuestion();
+//     }
+// }
 }
 
-// Event listener and function for option clicks
-// function getOptions() {
-//     var optionDisplay = document.getElementById('optionArr')
-//     optionDisplay.textContent=options[0].options
-// view your options inside of the buttons
-// document.getElementById("options-0")
-// document.getElementById("options-0").textContent = 'words'
-// }
-    
+// OPTION FOUND ONLINE:
 
+//     var answerQuest = questions.answer;
+//     if (event.target.questions.optionBtn === answerQuest) {
+//         event.target.innerHTML = 'Correct!'
+//         answerQuest.responseId = 'flash-response'
+
+//     } else {
+//         event.target.optionBtn !== answerQuest;
+//         event.target.innerHTML = 'Incorrect!';
+//         answerQuest.responseId = 'flash-response'
+//     }
 
 // Event Listener:
 // select correct answer-display correct! -move to next question
 // select wrong answer-display wrong! -subtract 5 seconds from time - move to next question
+// if ('answer' != 'option') {
+//     timerId--
+// }
 
-// function for ending quiz
-    //time runs out or finished with questions
+// finished:
+// var correctAns = "Correct!"
+// var scoreMax = 100
+// var scoreTotal = correctAns * 20
+// var scoreText = document.querySelector('#final-score')
+// *update scores for each question*
 
-/* finished:
+// finish page
+//     display score
+//     paragraph stating Time ran out OR Quiz Finished
+//     'Submit Name' with text box
+//     Submit button
+// Highscores button - either link to scores.html or put scores.html
+// on index.html to hide and unhide when clicked.
 
+// submitting high scores on Leader board
+//     printScores(); ?
+//     sort highest score to lowest
 
+// storing scores once submitted to leader board
 
-finish page
-    display score
-    paragraph stating Time ran out OR Quiz Finished
-    'Submit Name' with text box
-    Submit button
+// ***HighScores button on top left, can click anytime to view leader board
 
-submitting high scores on Leader board
-    printScores(); ?
-    sort highest score to lowest
-
-storing scores once submitted to leader board
-
-***HighScores button on top left, can click anytime to view leader board
-
-
-NOTES
-
-JS -
-startBtn.addEvenListener("onClick", startQuiz)]
-
-function to remove start screen once next screen starts
--unhide -remove attribute
--hide
-QUIZ:
-start quiz: fip through the questions
--var currentQuestionIndex start at 0 index
-Grab title element from html then set to current question
-keep track of what the user chose
-For loop for options]
-Add listeners to each choice, will display if correct or wrong once clicked, if correct
-states correct and moves to next button
-event.target grabs the answer that was clicked
-if the click element was not a choice element do nothing
-return-stops running
-if the button that was clicked value != questions[currentquestionindex].answer) {
-    if its not then penalize time
-    time -= 15
-
-    feedback in html hide Wrong!
-    feedback in html hide Correct!
-    value = time
-}
-*/
