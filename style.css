@@ -1,21 +1,46 @@
 body {
+    background-color:rgb(37, 37, 37);
+    color: white;
     font-family: monospace;
     font-size: 2rem;
 }
 
+h1 {
+    color:rgb(68, 125, 231);
+    border-style: dotted double dashed double;
+    border-width: thick;
+}
+
+h2 {
+    color: rgb(121, 243, 127);
+}
+
+.style-header {
+    display: flex;
+    justify-content: center;
+}
+
 .highscores {
+    font-family:Georgia, 'Times New Roman', Times, serif;
     color: rgb(3, 182, 128);
-    font-weight: bolder;
+    font-size: 40px;
 }
 
 .highscores:hover {
     color:rgb(120, 122, 122);
-
 }
 
 .timer {
     display: flex;
+    justify-content: center;
     align-items: center;
+    font-size: 40px;
+}
+
+#time {
+    color:rgb(240, 124, 70);
+    font-size: 50px;
+    font-weight: bolder;
 }
 
 .container {
@@ -23,51 +48,54 @@ body {
     max-width: 700px;
 }
 
+.container div {
+    padding: 20px;
+}
+
+.style-page {
+    box-shadow: 0 0 10px 5px rgb(41, 240, 247),
+    0 0 20px 10px rgb(68, 188, 243);
+}
+
 button {
-    display: inline-block;
     color: rgb(247, 244, 248);
     padding: 20px;
     border-radius: 2rem;
     font-size: 110%;
     background-color: rgb(165, 92, 207);
-    margin: 2px;
+    margin: 10px;
 }
 
 button:hover {
     color: black;
-    background-color:rgb(241, 109, 160);
-    box-shadow: 0 0 10px 5px rgb(41, 240, 247),
-                0 0 20px 10px rgb(68, 188, 243);
+    background-color:rgb(247, 72, 139);
+    box-shadow: 0 0 10px 7px rgb(248, 43, 7),
+                0 0 15px 12px rgb(243, 107, 65);
 }
 
 .hidden {
     display: none;
 }
 
-#option-array {
-    list-style-type: none;
-
-}
-
-.options {
+.option button{
     display: flex;
-    color: white;
+    justify-content: column;
 }
 
-
-/* start? */
-
-/* Questions in JS go by titles */
-/* 
-
-.options-btn {
-
+#response {
+    color:rgb(252, 248, 7);
 }
 
-input[type="text"] {
-
+#finish {
+    box-shadow: 0 0 10px 5px rgb(41, 240, 247),
+    0 0 20px 10px rgb(68, 188, 243);
 }
 
-li {
+#scores:nth-child(even) {
+    background-color: black;
+}
 
-} */
+#scores:nth-child(odd) {
+    background-color: rgb(82, 81, 81);
+}
+

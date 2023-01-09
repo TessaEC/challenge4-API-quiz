@@ -17,10 +17,10 @@
     <div class="timer">Time: <div id="time">0</div>
     </div>
     <div class="container">
-        <div id="start-page">
-            <h1>API Timed Quiz</h1>
+        <div class='style-page' id="start-page">
+            <h1 class="style-header">API Timed Quiz</h1>
             <p>
-                <b>Game Rules:</b>
+                <h2>Game Rules:</h2>
                 <br>
                 Answer each question before the timer
                 runs out, otherwise, it's GAME OVER!
@@ -34,22 +34,24 @@
         <div id="questions" class="hidden">
             <h2 id="question-title"></h2>
         
-        <div id="option-array" class="option">
-        </div>
+        <div id="option-array" class="option"></div>
         </div>
         <div id="finish" class="hidden">
             <h2>Game Over!</h2>
             <p>Your score is <span id="final-score"></span>.</p>
             <p>
                 First Name: <input type="text" id="name" />
+            </p>
+            <p>
                 <button id="submit">Submit Score!</button>
             </p>
         </div>
-        <div id="response" class="flash-response"></div>
+        <div id="response" class="hidden response"></div>
     </div>
 
         <script src="quiz.js"></script>
         <script src="script.js"></script>
+        <script src="leaderboard.js"></script>
 
 </body>
 

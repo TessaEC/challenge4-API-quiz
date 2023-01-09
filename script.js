@@ -1,22 +1,25 @@
 // variables
 // var timer;
-var timeStart = questions.length * 1;
+var timeStart = questions.length * 10;
 var questIndex = 0;
 var timeInterval;
-var optIndex = 0;
+var scoresArray = [];
 // var timed;
 // HTML DOM elements
 var startPage = document.getElementById('start-page');
 var startBtn = document.getElementById('start');
 var questionsPage = document.getElementById('questions');
 var timerId = document.getElementById('time');
-var submitBtn = document.getElementById('submit');
-var scoresId = document.getElementById('scores');
-var finishId = document.getElementById('finish');
+
 var optionsId = document.getElementById('option-array');
 var optionBtn = document.getElementById('option');
 var responseId = document.getElementById('response');
 var flashId = document.getElementById('flash-response');
+var finalScore = document.getElementById('final-score')
+var submitBtn = document.getElementById('submit');
+var scoreId = document.getElementById('scores');
+var finishId = document.getElementById('finish');
+var nameId = document.getElementById('name')
 
 // Start button event listener
 startBtn.addEventListener('click', function() {
@@ -49,16 +52,22 @@ function clockTick() {
     if (timeStart < 1) {
         questionsPage.classList.add("hidden")
         finishId.classList.remove("hidden")
-      }   
+    }
 }
 
 // function for displaying questions
 function getQuestion() {
+    
+    if (questIndex === questions.length) {
+        finishQuiz();
+        return;
+}
     var currentQuest = questions[questIndex]
     var questionDisplay = document.getElementById('question-title')
     // displays question as text
     questionDisplay.textContent = currentQuest.title
-
+    // Clears out options
+    optionsId.innerHTML = ""
     // for loop to go through options
     for (var i = 0; i < currentQuest.options.length; i++) {
         var optDisplay = currentQuest.options[i];
@@ -70,89 +79,91 @@ function getQuestion() {
         optCreate.textContent = optDisplay;
 
         optionsId.appendChild(optCreate);
-    } 
 
-// function answerQuest(event) {
-
-
-
-
-//     var answerBtn = event.target;
-
-//     optionBtn.addEventListener('click', answerBtn);
-
-//     if (!optionBtn.matches('option')) {
-//         return;
-//     }
-
-//     if(optionBtn.value !== questions[questIndex].answer) {
-//         time -= 10;
-//         if (time < 0) {
-//             time = 0;
-//         }
-
-//         timerId.textContent = time;
-
-//         responseId.textContent = 'Incorrect!';
-//     } else {
-//         responseId.textContent = 'Correct!';
-//     }
-
-//     responseId.setAttribute('class', 'response');
-//     responseTime(function() {
-//         responseId.setAttribute('class', 'flash-response');
-//     }, 2000);
-
-//     currentQuest++;
-
-//     if (time <= 0 || currentQuest === questions.length) {
-//         finishQuiz();
-//     } else {
-//         getQuestion();
-//     }
-// }
+        optCreate.addEventListener('click', answerQuest);
+    }    
 }
 
-// OPTION FOUND ONLINE:
+function answerQuest(event) {
+    var answerBtn = event.target;
 
-//     var answerQuest = questions.answer;
-//     if (event.target.questions.optionBtn === answerQuest) {
-//         event.target.innerHTML = 'Correct!'
-//         answerQuest.responseId = 'flash-response'
+    if (!answerBtn.matches('.option')) {
+        return;
+    }
 
-//     } else {
-//         event.target.optionBtn !== answerQuest;
-//         event.target.innerHTML = 'Incorrect!';
-//         answerQuest.responseId = 'flash-response'
-//     }
+    if(answerBtn.value !== questions[questIndex].answer) {
+        timeStart -= 10;
+        if (timeStart < 0) {
+            timeStart = 0;
+        }
 
-// Event Listener:
-// select correct answer-display correct! -move to next question
-// select wrong answer-display wrong! -subtract 5 seconds from time - move to next question
-// if ('answer' != 'option') {
-//     timerId--
-// }
+        timerId.textContent = timeStart;
 
-// finished:
-// var correctAns = "Correct!"
-// var scoreMax = 100
-// var scoreTotal = correctAns * 20
-// var scoreText = document.querySelector('#final-score')
-// *update scores for each question*
+        responseId.textContent = 'Incorrect!';
 
-// finish page
-//     display score
-//     paragraph stating Time ran out OR Quiz Finished
-//     'Submit Name' with text box
-//     Submit button
-// Highscores button - either link to scores.html or put scores.html
-// on index.html to hide and unhide when clicked.
+        questIndex++;
 
-// submitting high scores on Leader board
-//     printScores(); ?
-//     sort highest score to lowest
+        getQuestion();
 
-// storing scores once submitted to leader board
+        responseId.setAttribute('class', 'response');
+        setTimeout(function () {
+            responseId.setAttribute('class', 'response hidden');
+        }, 1500);
+    
+    } else {
+        responseId.textContent = 'Correct!';
 
-// ***HighScores button on top left, can click anytime to view leader board
+        questIndex++;
 
+        getQuestion();
+
+        responseId.setAttribute('class', 'response');
+        setTimeout(function () {
+            responseId.setAttribute('class', 'response hidden');
+        }, 2000);
+    }
+}
+
+function finishQuiz() {
+
+clearInterval(timeInterval);
+
+questionsPage.classList.add("hidden");
+finishId.classList.remove("hidden");
+
+finalScore.textContent = timeStart;
+}
+
+function saveScores() {
+    // grab the typed name from input box
+    var firstName = nameId.value.trim();
+
+    if (firstName !== '') {
+      // using JSON to turn array into string
+        JSON.parse(localStorage.getItem('finalScore')) || [];
+
+      var inputScore = {
+        score: timerId,
+        firstName: firstName
+      };
+
+    // save score to local storage
+    finalScore.push(inputScore);
+    localStorage.setItem('final-score', JSON.stringify(finalScore));
+
+    // takes you to the next page
+    location.href = "scores.html"
+    }
+
+function enterScores(event) {
+    if (event.key === 'submitBtn') {
+        saveScores();
+        }
+    }
+
+submitBtn.onclick = saveScores();
+
+nameId.onkeyup = enterScores;
+
+nameId.onkeyup = enterScores;
+}
