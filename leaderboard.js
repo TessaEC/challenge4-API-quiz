@@ -4,7 +4,7 @@ function leaderboard() {
     var storedScore = JSON.parse(window.localStorage.getItem('finalScore')) || [];
     // sort scores from highest to lowest score
     storedScore.sort((a, b) => b.score - a.score);
-    
+
     var scoreboard = document.getElementById('scores')
     // display all scores on page to view as li for each
     for (i = 0; i < storedScore.length; i++) {
@@ -16,8 +16,8 @@ function leaderboard() {
 }
 // clear the scores button
 function clearScores() {
-    window.localStorage.removeItem('scores')
-    window.localStorage.reload();
+    window.localStorage.removeItem('finalScore');
+    window.location.reload();
 }
 // call leader board function
 leaderboard();
