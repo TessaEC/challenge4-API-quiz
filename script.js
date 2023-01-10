@@ -1,20 +1,14 @@
 // variables
-// var timer;
 var timeStart = questions.length * 10;
 var questIndex = 0;
 var timeInterval;
-var scoresArray = [];
-// var timed;
 // HTML DOM elements
 var startPage = document.getElementById('start-page');
 var startBtn = document.getElementById('start');
 var questionsPage = document.getElementById('questions');
 var timerId = document.getElementById('time');
-
 var optionsId = document.getElementById('option-array');
-var optionBtn = document.getElementById('option');
 var responseId = document.getElementById('response');
-var flashId = document.getElementById('flash-response');
 var finalScore = document.getElementById('final-score')
 var submitBtn = document.getElementById('submit');
 var scoreId = document.getElementById('scores');
@@ -25,12 +19,9 @@ var nameId = document.getElementById('name')
 startBtn.addEventListener('click', function() {
     startPage.classList.add("hidden");
     questionsPage.classList.remove("hidden");
-
-// Start timer
+    // Start timer
     timeInterval = setInterval(clockTick, 1000);
-
-    score = 0
-
+    // when start button clicked, grab the first question in array
     getQuestion();
 })
 
@@ -41,12 +32,11 @@ function clockTick() {
         timerId.textContent = timeStart;
         // Decrease timeStart by 1
         timeStart--;
-      } else {
+    } else {
         // when timeStart gets to 0, set timerId to an empty string
         timerId.textContent = '';
         // clearInterval to stop the timer
         clearInterval(timeInterval);
-    // show final-score page when timer hits 0
       }
     //   when timer runs out, move to finish page
     if (timeStart < 1) {
@@ -57,7 +47,7 @@ function clockTick() {
 
 // function for displaying questions
 function getQuestion() {
-    
+    // when the amount of questions is reached it will finishes quiz
     if (questIndex === questions.length) {
         finishQuiz();
         return;
@@ -71,99 +61,87 @@ function getQuestion() {
     // for loop to go through options
     for (var i = 0; i < currentQuest.options.length; i++) {
         var optDisplay = currentQuest.options[i];
-
+        // creates a button for each option
         var optCreate = document.createElement('button');
         optCreate.setAttribute('class', 'option')
         optCreate.setAttribute('value', optDisplay)
-        
+        // display the options text
         optCreate.textContent = optDisplay;
-
+        // displays options on screen
         optionsId.appendChild(optCreate);
-
+        // when option is clicked, moves to next question
         optCreate.addEventListener('click', answerQuest);
     }    
 }
-
+// when an option is selected, run this function
 function answerQuest(event) {
+    // when something other than option button is clicked, do nothing
     var answerBtn = event.target;
-
     if (!answerBtn.matches('.option')) {
         return;
     }
-
+    // when the chosen answer is incorrect
     if(answerBtn.value !== questions[questIndex].answer) {
+        // incorrect answer, subtract time
         timeStart -= 10;
         if (timeStart < 0) {
             timeStart = 0;
         }
-
+        // view updated time on screen
         timerId.textContent = timeStart;
-
+        // if incorrect, display "incorrect" as message on screen
         responseId.textContent = 'Incorrect!';
-
+        // move to the next question
         questIndex++;
-
         getQuestion();
-
+        // displays the response on the page for 1.5 seconds
         responseId.setAttribute('class', 'response');
         setTimeout(function () {
             responseId.setAttribute('class', 'response hidden');
         }, 1500);
-    
+    // Otherwise, if the answer is correct, display "correct" on screen
     } else {
         responseId.textContent = 'Correct!';
-
+        // move to the next question
         questIndex++;
-
         getQuestion();
-
+        // displays the response on the page for 1.5 seconds
         responseId.setAttribute('class', 'response');
         setTimeout(function () {
             responseId.setAttribute('class', 'response hidden');
-        }, 2000);
+        }, 1500);
     }
 }
-
+// when the quiz is over, run this function
 function finishQuiz() {
-
+// stops the timer from continuing to countdown
 clearInterval(timeInterval);
-
+// switches hidden class to display the finish page only
 questionsPage.classList.add("hidden");
 finishId.classList.remove("hidden");
-
+// displays the time left on screen for users final score
 finalScore.textContent = timeStart;
 }
-
+// how the user will save their score to local storage
 function saveScores() {
-    // grab the typed name from input box
+    // sets a variable for the users name, doesn't allow blank spaces
     var firstName = nameId.value.trim();
-
+    // checks to make sure the score is not empty
     if (firstName !== '') {
-      // using JSON to turn array into string
-        JSON.parse(localStorage.getItem('finalScore')) || [];
-
-      var inputScore = {
-        score: timerId,
-        firstName: firstName
+        // gets the saved score from local storage, if not, set to empty array
+        var storedScore =
+            JSON.parse(window.localStorage.getItem('finalScore')) || [];
+        // input method for the users score
+        var inputScore = {
+            score: timeStart,
+            name: firstName
       };
 
     // save score to local storage
-    finalScore.push(inputScore);
-    localStorage.setItem('final-score', JSON.stringify(finalScore));
-
-    // takes you to the next page
+    storedScore.push(inputScore);
+    window.localStorage.setItem('finalScore', JSON.stringify(storedScore));
+     // takes you to the next page
     location.href = "scores.html"
     }
-
-function enterScores(event) {
-    if (event.key === 'submitBtn') {
-        saveScores();
-        }
-    }
-
-submitBtn.onclick = saveScores();
-
-nameId.onkeyup = enterScores;
-
-nameId.onkeyup = enterScores;
 }
+submitBtn.addEventListener('click', saveScores);
